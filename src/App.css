@@ -1,0 +1,47 @@
+:root {
+  --n_rows: 38;
+  --n_cols: 28;
+}
+
+.square-template {
+  margin: 72px;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.colors {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 72px 0 0 72px;
+}
+
+.color-block {
+  width: 20px;
+  height: 20px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(
+    var(--n_cols),
+    24px
+  ); /* Adjust the number of columns and size of dots as needed */
+  grid-template-rows: repeat(
+    var(--n_rows),
+    24px
+  ); /* Adjust the number of rows and size of dots as needed */
+  margin: 0 auto;
+}
+
+.dot {
+  width: 10px; /* Adjust the size of the dots as needed */
+  height: 10px; /* Adjust the size of the dots as needed */
+  background-color: #ccc; /* Adjust the color of the dots as needed */
+  border-radius: 50%; /* Make the dots round */
+  border: 7px solid white;
+  /* box-sizing: border-box; */
+}
