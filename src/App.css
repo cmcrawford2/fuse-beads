@@ -4,14 +4,14 @@
   --global-background-color: #eee;
 }
 
-.square-template {
-  margin: 72px;
-}
-
 .main-wrapper {
   display: flex;
   flex-direction: row;
   background-color: var(--global-background-color);
+}
+
+.square-template {
+  margin: 72px;
 }
 
 .colors {
@@ -49,11 +49,11 @@
 }
 
 .color-eraser::before {
-  transform: rotate(45deg); /* Rotate the line to make a diagonal */
+  transform: rotate(45deg);
 }
 
 .color-eraser::after {
-  transform: rotate(-45deg); /* Rotate the line to make a diagonal */
+  transform: rotate(-45deg);
 }
 
 .selected {
@@ -62,22 +62,15 @@
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(
-    var(--n_cols),
-    24px
-  ); /* Adjust the number of columns and size of dots as needed */
-  grid-template-rows: repeat(
-    var(--n_rows),
-    24px
-  ); /* Adjust the number of rows and size of dots as needed */
+  grid-template-columns: repeat(var(--n_cols), 24px);
+  grid-template-rows: repeat(var(--n_rows), 24px);
   margin: 0 auto;
 }
 
 .dot {
-  width: 10px; /* Adjust the size of the dots as needed */
-  height: 10px; /* Adjust the size of the dots as needed */
-  background-color: #ccc; /* Adjust the color of the dots as needed */
-  border-radius: 50%; /* Make the dots round */
+  width: 10px;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 50%;
   border: 7px solid var(--global-background-color);
-  /* box-sizing: border-box; */
 }
