@@ -38,7 +38,7 @@ function App() {
           key={`${row}-${col}`}
           className="dot"
           onClick={() => addBeadToDot(row, col)} // Pass the row and col to the addBeadToDot function
-          style={{ borderColor: dotColor }} // Set the background color of the dot
+          style={{ borderColor: dotColor }} // Set the border color of the dot
         ></div>
       );
     }
