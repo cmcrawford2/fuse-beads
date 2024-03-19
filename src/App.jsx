@@ -5,15 +5,33 @@ import "./App.css";
 function App() {
   const [color, setColor] = useState("");
   const [dotColors, setDotColors] = useState([]);
+  const [mouseDown, setMouseDown] = useState(false);
+
+  const handleMouseDown = (row, col) => {
+    setMouseDown(true);
+    addBeadToDot(row, col, true);
+  };
+
+  const handleMouseUp = () => {
+    setMouseDown(false);
+  };
+
+  const handleMouseLeave = () => {
+    if (mouseDown) {
+      setMouseDown(false);
+    }
+  };
 
   function handleColorChange(newColor) {
     setColor(newColor);
   }
 
-  const addBeadToDot = (row, col) => {
-    const newDotColors = [...dotColors];
-    newDotColors[row * numCols + col] = color;
-    setDotColors(newDotColors);
+  const addBeadToDot = (row, col, isMouseDown) => {
+    if (isMouseDown === true) {
+      const newDotColors = [...dotColors];
+      newDotColors[row * numCols + col] = color;
+      setDotColors(newDotColors);
+    }
   };
 
   const root = document.documentElement;
@@ -34,7 +52,9 @@ function App() {
         <div
           key={`${row}-${col}`}
           className="dot"
-          onClick={() => addBeadToDot(row, col)}
+          onMouseDown={() => handleMouseDown(row, col)}
+          onMouseOver={() => addBeadToDot(row, col, mouseDown)}
+          onMouseUp={() => handleMouseUp()}
           style={{ borderColor: dotColor }}
         ></div>
       );
@@ -45,7 +65,7 @@ function App() {
     <>
       <div className="main-wrapper">
         <Colors handleColorChange={handleColorChange} />
-        <div className="square-template">
+        <div className="square-template" onMouseLeave={handleMouseLeave}>
           <div className="grid-container">{dots}</div>;
         </div>
       </div>
