@@ -100,7 +100,7 @@ function App() {
         </button>
         <button
           className="header-color-button"
-          onClick={(palette, numRows, numCols, dotColors) =>
+          onClick={() =>
             saveSquareTemplate(palette, numRows, numCols, dotColors)
           }
         >
