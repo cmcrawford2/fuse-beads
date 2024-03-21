@@ -2,6 +2,7 @@ import { useState } from "react";
 import Palette from "./Palette";
 import ColorMenu from "./ColorMenu";
 import { getActiveColors } from "./utils/colors";
+import { saveSquareTemplate, readSquareTemplate } from "./utils/store";
 
 import "./App.css";
 
@@ -11,6 +12,18 @@ function App() {
   const [mouseDown, setMouseDown] = useState(false);
   const [isColorMenuOpen, setColorMenuOpen] = useState(false);
   const [palette, setPalette] = useState(getActiveColors());
+
+  const getSquareTemplate = () => {
+    readSquareTemplate((template) => {
+      console.log(template);
+      if (template === null || template.type !== "square")
+        console.log("error reading data");
+      else {
+        setPalette(template.palette);
+        setDotColors(template.data.dotColors);
+      }
+    });
+  };
 
   const handleMouseDown = (row, col) => {
     setMouseDown(true);
@@ -78,31 +91,6 @@ function App() {
     }
   }
 
-  // TODO: put this in a different file, and add a retrieve button.
-  // Write the code to read a json file.
-
-  const saveTemplate = () => {
-    const template = {
-      name: "storedtemplate.json",
-      type: "square",
-      palette: palette,
-      data: {
-        rows: numRows,
-        cols: numCols,
-        dotColors: dotColors,
-      },
-    };
-    const jsonData = JSON.stringify(template, null, 2); // null and 2 for readability
-
-    const blob = new Blob([jsonData], { type: "application/json" });
-
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = `storedtemplate.json`;
-
-    link.click();
-  };
-
   return (
     <>
       <div className="header-wrapper">
@@ -110,8 +98,16 @@ function App() {
         <button className="header-color-button" onClick={openColorMenu}>
           Colors
         </button>
-        <button className="header-color-button" onClick={saveTemplate}>
+        <button
+          className="header-color-button"
+          onClick={(palette, numRows, numCols, dotColors) =>
+            saveSquareTemplate(palette, numRows, numCols, dotColors)
+          }
+        >
           Save
+        </button>
+        <button className="header-color-button" onClick={getSquareTemplate}>
+          Restore
         </button>
       </div>
       {isColorMenuOpen && (
