@@ -1,11 +1,16 @@
 import { useState } from "react";
-import Colors from "./Colors";
+import Palette from "./Palette";
+import ColorMenu from "./ColorMenu";
+import { getActiveColors } from "./utils/colors";
+
 import "./App.css";
 
 function App() {
-  const [color, setColor] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
   const [dotColors, setDotColors] = useState([]);
   const [mouseDown, setMouseDown] = useState(false);
+  const [isColorMenuOpen, setColorMenuOpen] = useState(false);
+  const [palette, setPalette] = useState(getActiveColors());
 
   const handleMouseDown = (row, col) => {
     setMouseDown(true);
@@ -22,16 +27,28 @@ function App() {
     }
   };
 
-  function handleColorChange(newColor) {
-    setColor(newColor);
-  }
+  const changeSelectedColor = (newColor) => {
+    setSelectedColor(newColor);
+  };
 
   const addBeadToDot = (row, col, isMouseDown) => {
     if (isMouseDown === true) {
       const newDotColors = [...dotColors];
-      newDotColors[row * numCols + col] = color;
+      newDotColors[row * numCols + col] = selectedColor;
       setDotColors(newDotColors);
     }
+  };
+
+  const openColorMenu = () => {
+    setColorMenuOpen(true);
+  };
+
+  const closeColorMenu = () => {
+    setColorMenuOpen(false);
+  };
+
+  const changePalette = (newPalette) => {
+    setPalette(newPalette);
   };
 
   const root = document.documentElement;
@@ -55,7 +72,7 @@ function App() {
           onMouseDown={() => handleMouseDown(row, col)}
           onMouseOver={() => addBeadToDot(row, col, mouseDown)}
           onMouseUp={() => handleMouseUp()}
-          style={{ borderColor: dotColor }}
+          style={{ borderColor: dotColor ? dotColor.hex : "" }}
         ></div>
       );
     }
@@ -63,8 +80,20 @@ function App() {
 
   return (
     <>
+      <div className="header-wrapper">
+        <div className="header-logo">Fuse Bead Planner</div>
+        <button className="header-color-button" onClick={openColorMenu}>
+          Colors
+        </button>
+      </div>
+      {isColorMenuOpen && (
+        <ColorMenu changePalette={changePalette} closeMenu={closeColorMenu} />
+      )}
       <div className="main-wrapper">
-        <Colors handleColorChange={handleColorChange} />
+        <Palette
+          activeColors={palette}
+          changeSelectedColor={changeSelectedColor}
+        />
         <div className="square-template" onMouseLeave={handleMouseLeave}>
           <div className="grid-container">{dots}</div>;
         </div>
