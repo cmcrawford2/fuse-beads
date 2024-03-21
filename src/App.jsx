@@ -95,18 +95,18 @@ function App() {
     <>
       <div className="header-wrapper">
         <div className="header-logo">Fuse Bead Planner</div>
-        <button className="header-color-button" onClick={openColorMenu}>
-          Colors
+        <button className="header-button" onClick={openColorMenu}>
+          Bead colors
         </button>
         <button
-          className="header-color-button"
+          className="header-button"
           onClick={() =>
             saveSquareTemplate(palette, numRows, numCols, dotColors)
           }
         >
           Save
         </button>
-        <button className="header-color-button" onClick={getSquareTemplate}>
+        <button className="header-button" onClick={getSquareTemplate}>
           Restore
         </button>
       </div>
