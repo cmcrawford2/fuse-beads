@@ -78,6 +78,9 @@ function App() {
     }
   }
 
+  // TODO: put this in a different file, and add a retrieve button.
+  // Write the code to read a json file.
+
   const saveTemplate = () => {
     const template = {
       name: "storedtemplate.json",

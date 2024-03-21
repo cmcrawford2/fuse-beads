@@ -1,15 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const Palette = ({ activeColors, changeSelectedColor }) => {
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
 
-  useEffect(() => {
-    const firstColorId = activeColors.find((color) => color.id !== 0)?.id;
-    setSelectedColorIndex(firstColorId !== undefined ? firstColorId : 0); // Set to the id of the first color (excluding the eraser) if it exists
-  }, [activeColors]);
-
-  const handleColorChange = (newSelectedColor) => {
-    setSelectedColorIndex(newSelectedColor.id);
+  const handleColorChange = (newSelectedColor, index) => {
+    setSelectedColorIndex(index);
     changeSelectedColor(newSelectedColor);
   };
 
@@ -26,7 +21,7 @@ const Palette = ({ activeColors, changeSelectedColor }) => {
           className={`color-block ${
             selectedColorIndex === color.id ? "selected" : ""
           }`}
-          onClick={() => handleColorChange(color)}
+          onClick={() => handleColorChange(color, color.id)}
           style={{ backgroundColor: color.hex }}
         ></div>
       ))}
