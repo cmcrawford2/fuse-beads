@@ -12,10 +12,18 @@ export function getActiveColors() {
   if (colorArray.length > 0) return colorArray;
 
   const defaultColors = [
+    { id: 8, name: "cheddar", rgb: "250 200 85", hex: "#FAC855" },
+    { id: 9, name: "butterscotch", rgb: "240 150 110", hex: "#F0966E" },
     { id: 14, name: "raspberry", rgb: "190 70 115", hex: "#BE4673" },
-    { id: 12, name: "tan", rgb: "205 165 135", hex: "#CDA587" },
-    { id: 15, name: "red", rgb: "205 70 90", hex: "#CD465A" },
     { id: 16, name: "orange", rgb: "255 115 80", hex: "#FF7350" },
+    { id: 17, name: "magenta", rgb: "255 60 130", hex: "#FF3C82" },
+    { id: 25, name: "pastel lavender", rgb: "155 135 205", hex: "#9B87CD" },
+    { id: 28, name: "light blue", rgb: "45 130 200", hex: "#2D82C8" },
+    { id: 29, name: "dark blue", rgb: "35 80 145", hex: "#235091" },
+    { id: 31, name: "purple", rgb: "120 95 155", hex: "#785F9B" },
+    { id: 36, name: "dark green", rgb: "40 140 100 ", hex: "#288C64" },
+    { id: 39, name: "bright green", rgb: "115 185 115 ", hex: "#73B973" },
+    { id: 35, name: "kiwi lime", rgb: "125 210 80 ", hex: "#7DD250" },
   ];
 
   saveSelectedColors(defaultColors);
