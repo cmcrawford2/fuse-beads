@@ -78,12 +78,37 @@ function App() {
     }
   }
 
+  const saveTemplate = () => {
+    const template = {
+      name: "storedtemplate.json",
+      type: "square",
+      palette: palette,
+      data: {
+        rows: numRows,
+        cols: numCols,
+        dotColors: dotColors,
+      },
+    };
+    const jsonData = JSON.stringify(template, null, 2); // null and 2 for readability
+
+    const blob = new Blob([jsonData], { type: "application/json" });
+
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `storedtemplate.json`;
+
+    link.click();
+  };
+
   return (
     <>
       <div className="header-wrapper">
         <div className="header-logo">Fuse Bead Planner</div>
         <button className="header-color-button" onClick={openColorMenu}>
           Colors
+        </button>
+        <button className="header-color-button" onClick={saveTemplate}>
+          Save
         </button>
       </div>
       {isColorMenuOpen && (
