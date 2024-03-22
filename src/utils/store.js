@@ -30,7 +30,7 @@ export const readSquareTemplate = (readData) => {
     return;
   }
 
-  if (!confirm("OK to overwrite current piano?")) return;
+  if (!confirm("OK to overwrite current design?")) return;
 
   const fileInput = document.createElement("input");
   fileInput.type = "file";
