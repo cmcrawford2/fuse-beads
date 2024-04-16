@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Palette from "./Palette";
 import ColorMenu from "./ColorMenu";
 import { getActiveColors } from "./utils/colors";
@@ -12,6 +12,22 @@ function App() {
   const [mouseDown, setMouseDown] = useState(false);
   const [isColorMenuOpen, setColorMenuOpen] = useState(false);
   const [palette, setPalette] = useState(getActiveColors());
+  const [rowsAndCols, setRowsAndCols] = useState([]);
+
+  useEffect(() => {
+    // Use Effect will run once to get default rows and columns.
+    // Otherwise they are stored in whatever json file may be read.
+    const root = document.documentElement;
+    const numRows = parseInt(
+      getComputedStyle(root).getPropertyValue("--n_rows"),
+      10
+    );
+    const numCols = parseInt(
+      getComputedStyle(root).getPropertyValue("--n_cols"),
+      10
+    );
+    setRowsAndCols([numRows, numCols]);
+  }, []);
 
   const getSquareTemplate = () => {
     readSquareTemplate((template) => {
@@ -21,6 +37,9 @@ function App() {
       else {
         setPalette(template.palette);
         setDotColors(template.data.dotColors);
+        const array = [template.data.rows, template.data.cols];
+        console.log(array);
+        setRowsAndCols([template.data.rows, template.data.cols]);
       }
     });
   };
@@ -47,7 +66,7 @@ function App() {
   const addBeadToDot = (row, col, isMouseDown) => {
     if (isMouseDown === true) {
       const newDotColors = [...dotColors];
-      newDotColors[row * numCols + col] = selectedColor;
+      newDotColors[row * rowsAndCols[1] + col] = selectedColor;
       setDotColors(newDotColors);
     }
   };
@@ -64,20 +83,10 @@ function App() {
     setPalette(newPalette);
   };
 
-  const root = document.documentElement;
-  const numRows = parseInt(
-    getComputedStyle(root).getPropertyValue("--n_rows"),
-    10
-  );
-  const numCols = parseInt(
-    getComputedStyle(root).getPropertyValue("--n_cols"),
-    10
-  );
-
   const dots = [];
-  for (let row = 0; row < numRows; row++) {
-    for (let col = 0; col < numCols; col++) {
-      const dotColor = dotColors[row * numCols + col];
+  for (let row = 0; row < rowsAndCols[0]; row++) {
+    for (let col = 0; col < rowsAndCols[1]; col++) {
+      const dotColor = dotColors[row * rowsAndCols[1] + col];
       dots.push(
         <div
           key={`${row}-${col}`}
@@ -101,7 +110,12 @@ function App() {
         <button
           className="header-button"
           onClick={() =>
-            saveSquareTemplate(palette, numRows, numCols, dotColors)
+            saveSquareTemplate(
+              palette,
+              rowsAndCols[0],
+              rowsAndCols[1],
+              dotColors
+            )
           }
         >
           Save
