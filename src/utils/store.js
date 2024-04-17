@@ -48,7 +48,6 @@ export const readSquareTemplate = (readData) => {
       try {
         const importedData = JSON.parse(event.target.result);
         readData(importedData);
-        console.log("importedData = ", importedData);
         // Read the number of rows and columns
         const newRows = importedData.data.rows;
         const newCols = importedData.data.cols;
@@ -57,7 +56,6 @@ export const readSquareTemplate = (readData) => {
         const root = document.documentElement;
         root.style.setProperty("--n_rows", newRows);
         root.style.setProperty("--n_cols", newCols);
-        console.log("n_rows = ", newRows, "n_cols = ", newCols);
       } catch (error) {
         console.error("Error parsing the file:", error);
       }

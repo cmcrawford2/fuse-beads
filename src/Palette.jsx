@@ -1,27 +1,20 @@
-import { useState } from "react";
-
-const Palette = ({ activeColors, changeSelectedColor }) => {
-  const [selectedColorIndex, setSelectedColorIndex] = useState(0);
-
-  const handleColorChange = (newSelectedColor, index) => {
-    setSelectedColorIndex(index);
-    changeSelectedColor(newSelectedColor);
-  };
+const Palette = ({ activeColors, selectedColor, changeSelectedColor }) => {
+  const selectedColorId = selectedColor ? selectedColor.id : 0;
 
   return (
     <div className="colors">
       <div
         key={0}
-        className={`color-eraser ${selectedColorIndex === 0 ? "selected" : ""}`}
-        onClick={() => handleColorChange("", 0)}
+        className={`color-eraser ${selectedColorId === 0 ? "selected" : ""}`}
+        onClick={() => changeSelectedColor("")}
       ></div>
       {activeColors.map((color) => (
         <div
           key={color.id}
           className={`color-block ${
-            selectedColorIndex === color.id ? "selected" : ""
+            selectedColorId === color.id ? "selected" : ""
           }`}
-          onClick={() => handleColorChange(color, color.id)}
+          onClick={() => changeSelectedColor(color)}
           style={{ backgroundColor: color.hex }}
         ></div>
       ))}
