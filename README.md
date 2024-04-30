@@ -1,8 +1,15 @@
-# React + Vite
+# Fuse Beads
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a React project that creates a planner for fuse bead designs.
 
-Currently, two official plugins are available:
+Start by painting beads on the pegboard. You can change the color by clicking the palette on the left.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+You can erase beads by clicking the erase button at the top of the palette.
+
+You can add or remove colors from the palette using the "Bead colors" button. This brings up a menu with the standard Perler bead colors.
+
+You can save a json file with the Save button. It writes a file called storedtemplate.json to downloads directory.
+
+You can restore a file using the Restore button. It'll open the browser file search.
+
+Finally, there's a help button that has instructions in it similar to these.
